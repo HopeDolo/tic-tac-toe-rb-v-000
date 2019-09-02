@@ -129,3 +129,14 @@ def winner(board)
     end
   end
 end
+
+def play(board)
+  until over?(board)
+    turn(board)
+  end
+  if won?(game)
+    puts "Congratulations #{winner}!"
+  else
+    puts "Cat's game!"
+
+end
