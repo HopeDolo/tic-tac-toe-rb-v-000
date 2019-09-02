@@ -82,3 +82,12 @@ def won?(board)
     end
   end
 end
+
+def full?(board)
+  board.all? do |token|
+    if token.eql?("X") || token.eql?("O")
+      true
+    end
+  end
+end
+
