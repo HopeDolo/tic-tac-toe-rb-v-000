@@ -33,6 +33,10 @@ def valid_move?(board, index)
   !position_taken?(board, index) && index.between?(0,8)
 end
 
+def current_player(board)
+  turn_count(board).even? ? "X" : "O"
+end
+
 def turn(board)
   puts "Please enter 1-9:"
   input = gets.strip
@@ -53,8 +57,4 @@ if elle == "X" || elle == "O"
 end
 end
 return counter
-end
-
-def current_player(board)
-  turn_count(board).even? ? "X" : "O"
 end
