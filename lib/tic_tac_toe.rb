@@ -33,16 +33,8 @@ def valid_move?(board, index)
   !position_taken?(board, index) && index.between?(0,8)
 end
 
-def turn(board)
-  puts "Please enter 1-9:"
-  input = gets.strip
-  index = input_to_index(input)
-  if valid_move?(board, index)
-    move(board, index, current_player(board))
-    display_board(board)
-  else
-    turn(board)
-  end
+def current_player(board)
+  turn_count(board).even? ? "X" : "O"
 end
 
 def turn_count(board)
@@ -55,6 +47,38 @@ end
 return counter
 end
 
-def current_player(board)
-  turn_count(board).even? ? "X" : "O"
+def turn(board)
+  puts "Please enter 1-9:"
+  input = gets.strip
+  index = input_to_index(input)
+  if valid_move?(board, index)
+    move(board, index, current_player(board))
+    display_board(board)
+  else
+    turn(board)
+  end
+end
+
+def won?(board)
+  WIN_COMBINATIONS.each do |win_combination|
+
+    win_index_1 = win_combination[0]
+    win_index_2 = win_combination[1]
+    win_index_3 = win_combination[2]
+
+    position_1 = board[win_index_1]
+    position_2 = board[win_index_2]
+    position_3 = board[win_index_3]
+
+    if  position_1 == "X" && position_2 == "X" && position_3 == "X" ||
+      position_1 == "O" && position_2 == "O" && position_3 == "O"
+      return win_combination
+    end
+  end
+
+  board.all? do |token|
+    if token.eql?(" ")
+      false
+    end
+  end
 end
